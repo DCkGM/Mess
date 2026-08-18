@@ -1,3 +1,7 @@
+/* =========================================
+   GLOBAL
+========================================= */
+
 * {
     box-sizing: border-box;
 }
@@ -5,28 +9,26 @@
 
 :root {
 
-    --blue-dark: #071a3d;
+    --navy-dark: #061735;
 
-    --blue: #0b2d63;
+    --navy: #09234d;
 
-    --blue-light: #123f82;
+    --navy-light: #0d3168;
 
-    --yellow: #ffc72c;
+    --blue-border: #16437d;
 
-    --yellow-light: #ffd95a;
+    --yellow: #ffc52e;
+
+    --yellow-dark: #e9ad00;
 
     --white: #ffffff;
 
-    --text-light: #dce7f7;
+    --text-light: #dce7f6;
 
-    --text-muted: #91a6c7;
+    --text-muted: #91a8ca;
 
 }
 
-
-/* =========================
-   BODY
-========================= */
 
 body {
 
@@ -43,51 +45,45 @@ body {
         Arial,
         sans-serif;
 
-    color: var(--white);
-
     background:
 
         radial-gradient(
             circle at 85% 10%,
-            rgba(255,199,44,0.10),
-            transparent 30%
+            rgba(255, 197, 46, 0.08),
+            transparent 28%
         ),
 
-        radial-gradient(
-            circle at 10% 80%,
-            rgba(24,72,140,0.25),
-            transparent 35%
-        ),
+        linear-gradient(
+            135deg,
+            #061735,
+            #081d40
+        );
 
-        var(--blue-dark);
+    color: var(--white);
 
 }
 
 
-/* =========================
-   TOP BAR
-========================= */
+/* =========================================
+   HEADER
+========================================= */
 
 .topbar {
 
-    height: 86px;
+    height: 90px;
 
     display: flex;
 
     align-items: center;
 
-    padding:
-        0 40px;
+    padding: 0 42px;
+
+    background:
+        rgba(3, 15, 35, 0.65);
 
     border-bottom:
         1px solid
-        rgba(255,255,255,0.10);
-
-    background:
-        rgba(4,16,38,0.85);
-
-    backdrop-filter:
-        blur(15px);
+        rgba(255, 255, 255, 0.08);
 
 }
 
@@ -98,16 +94,16 @@ body {
 
     align-items: center;
 
-    gap: 14px;
+    gap: 15px;
 
 }
 
 
 .iitb-logo {
 
-    width: 52px;
+    width: 58px;
 
-    height: 52px;
+    height: 58px;
 
     object-fit: contain;
 
@@ -120,14 +116,14 @@ body {
 
     flex-direction: column;
 
-    gap: 2px;
+    gap: 3px;
 
 }
 
 
 .brand-text strong {
 
-    font-size: 15px;
+    font-size: 16px;
 
     letter-spacing: 2px;
 
@@ -138,66 +134,62 @@ body {
 
     font-size: 12px;
 
-    color:
-        var(--text-muted);
+    color: var(--yellow);
 
     letter-spacing: 1px;
 
 }
 
 
-/* =========================
-   MAIN CONTAINER
-========================= */
-
-.container {
-
-    width:
-        min(1100px, calc(100% - 40px));
-
-    margin:
-        auto;
-
-}
-
-
-/* =========================
+/* =========================================
    HERO
-========================= */
+========================================= */
 
 .hero {
 
-    min-height: 500px;
+    width:
+        min(1400px, calc(100% - 100px));
 
-    display: flex;
+    min-height: 430px;
 
-    align-items: center;
+    margin: auto;
 
     padding:
         70px 0;
 
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        330px;
+
+    align-items: center;
+
+    gap: 60px;
+
 }
 
 
-.hero-content {
+/* LEFT SIDE */
 
-    width: 100%;
+.hero-left {
+
+    min-width: 0;
 
 }
 
 
 .eyebrow {
 
-    margin: 0 0 15px;
+    margin: 0 0 20px;
 
-    font-size: 12px;
+    color: var(--yellow);
 
-    font-weight: 800;
+    font-size: 13px;
+
+    font-weight: 900;
 
     letter-spacing: 4px;
-
-    color:
-        var(--yellow);
 
 }
 
@@ -207,11 +199,11 @@ h1 {
     margin: 0;
 
     font-size:
-        clamp(60px, 9vw, 105px);
+        clamp(65px, 8vw, 115px);
 
     line-height: 0.88;
 
-    letter-spacing: -5px;
+    letter-spacing: -6px;
 
     font-weight: 900;
 
@@ -220,8 +212,7 @@ h1 {
 
 h1 span {
 
-    color:
-        var(--yellow);
+    color: var(--yellow);
 
 }
 
@@ -229,187 +220,283 @@ h1 span {
 .subtitle {
 
     margin:
-        30px 0;
+        35px 0 0;
 
-    max-width: 500px;
+    max-width: 650px;
 
-    color:
-        var(--text-muted);
+    color: var(--text-muted);
 
-    font-size: 17px;
+    font-size:
+        clamp(16px, 2vw, 22px);
 
-    line-height: 1.6;
+    line-height: 1.5;
 
 }
 
 
-.count-wrapper {
+/* =========================================
+   RIGHT SIDE COUNT
+========================================= */
+
+.hero-right {
+
+    min-height: 300px;
+
+    padding-left: 55px;
+
+    border-left:
+        2px solid
+        rgba(255, 197, 46, 0.25);
 
     display: flex;
 
-    align-items: baseline;
+    flex-direction: column;
 
-    gap: 15px;
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
 
 }
 
 
-#count {
+.count {
 
     font-size:
-        clamp(90px, 14vw, 160px);
+        clamp(110px, 12vw, 175px);
 
-    line-height: 0.85;
+    line-height: 0.8;
 
     font-weight: 900;
 
     letter-spacing: -8px;
+
+    color: var(--white);
 
 }
 
 
 .count-label {
 
-    color:
-        var(--yellow);
+    margin-top: 25px;
 
-    font-weight: 800;
+    color: var(--yellow);
 
-    letter-spacing: 2px;
+    font-size: 18px;
 
-    font-size: 14px;
+    font-weight: 900;
+
+    letter-spacing: 6px;
 
 }
 
 
 .status {
 
-    margin-top: 25px;
+    margin-top: 30px;
 
-    color:
-        #78e6a5;
+    color: #65e69b;
 
     font-size: 13px;
 
-    font-weight: 600;
+    font-weight: 700;
 
 }
 
 
-/* =========================
-   QR SECTION
-========================= */
+/* =========================================
+   GOLD DIVIDER
+========================================= */
 
-.qr-section {
-
-    padding:
-        20px 0 80px;
-
-}
-
-
-.qr-card {
-
-    position: relative;
-
-    background:
-        var(--white);
-
-    color:
-        var(--blue-dark);
-
-    border-radius: 28px;
-
-    padding:
-        35px;
-
-    max-width: 650px;
-
-    margin: auto;
-
-    box-shadow:
-        0 30px 80px
-        rgba(0,0,0,0.35);
-
-    overflow: hidden;
-
-}
-
-
-.qr-card::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
+.gold-line {
 
     width: 100%;
 
-    height: 7px;
+    height: 2px;
 
     background:
         var(--yellow);
 
-}
-
-
-.qr-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: flex-start;
+    opacity: 0.8;
 
 }
 
 
-.qr-header .eyebrow {
+/* =========================================
+   LOWER SECTION
+========================================= */
 
-    color:
-        var(--blue-light);
+.lower-section {
+
+    width:
+        min(1400px, calc(100% - 100px));
+
+    margin: auto;
+
+    padding:
+        35px 0 70px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(500px, 1.1fr)
+        minmax(500px, 1fr);
+
+    gap: 40px;
 
 }
 
 
-.qr-header h2 {
+/* =========================================
+   QR CARD
+========================================= */
+
+.qr-card {
+
+    min-height: 320px;
+
+    padding: 30px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 280px;
+
+    align-items: center;
+
+    gap: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0c2c60,
+            #0a2450
+        );
+
+    border:
+        1px solid
+        var(--blue-border);
+
+    border-radius: 24px;
+
+}
+
+
+.eyebrow.dark {
+
+    color: var(--yellow);
+
+}
+
+
+.qr-card h2 {
+
+    margin:
+        0 0 12px;
+
+    font-size: 29px;
+
+}
+
+
+.qr-description {
 
     margin: 0;
 
-    font-size: 30px;
+    color: var(--text-light);
+
+    font-size: 15px;
 
 }
 
 
-.qr-number {
+.qr-divider {
 
-    font-size: 55px;
+    width: 100%;
 
-    font-weight: 900;
+    height: 2px;
 
-    color:
-        #e8edf5;
+    margin:
+        25px 0;
+
+    background: var(--yellow);
+
+}
+
+
+.scan-instruction {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+
+.phone-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: grid;
+
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        var(--yellow);
+
+    font-size: 22px;
+
+}
+
+
+.scan-instruction p {
+
+    margin: 0;
+
+    color: var(--text-light);
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================
+   QR CODE
+========================================= */
+
+.qr-wrapper {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
 
 }
 
 
 .qrcode {
 
-    width: fit-content;
+    padding: 12px;
 
-    margin:
-        35px auto;
-
-    padding: 16px;
+    background: white;
 
     border:
-        3px solid
-        var(--blue-dark);
+        5px solid
+        var(--yellow);
 
-    border-radius: 15px;
+    border-radius: 17px;
 
 }
 
@@ -421,216 +508,178 @@ h1 span {
 }
 
 
-.scan-message {
+/* =========================================
+   HOW IT WORKS
+========================================= */
 
-    display: flex;
+.how-section {
 
-    align-items: center;
-
-    gap: 15px;
-
-    padding-top: 20px;
-
-    border-top:
-        1px solid
-        #e5e9f0;
+    min-width: 0;
 
 }
 
 
-.scan-icon {
-
-    width: 45px;
-
-    height: 45px;
-
-    display: grid;
-
-    place-items: center;
-
-    border-radius: 12px;
-
-    background:
-        var(--yellow);
-
-    font-size: 24px;
-
-    font-weight: bold;
-
-}
-
-
-.scan-message strong {
-
-    font-size: 16px;
-
-}
-
-
-.scan-message p {
-
-    margin: 4px 0 0;
-
-    color:
-        #68758a;
-
-    font-size: 13px;
-
-}
-
-
-/* =========================
-   INFO CARDS
-========================= */
-
-.info-section {
+.steps {
 
     display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap: 18px;
-
-    padding-bottom: 80px;
+    gap: 15px;
 
 }
 
 
-.info-card {
+.step-card {
 
-    display: flex;
+    min-height: 285px;
 
-    gap: 18px;
+    padding: 22px;
 
-    padding: 25px;
-
-    border-radius: 20px;
+    position: relative;
 
     background:
-        rgba(255,255,255,0.045);
+        rgba(255,255,255,0.035);
 
     border:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(50, 103, 165, 0.5);
+
+    border-radius: 18px;
 
 }
 
 
-.info-number {
+.step-number {
 
-    color:
-        var(--yellow);
+    color: var(--yellow);
 
-    font-size: 20px;
+    font-size: 28px;
 
     font-weight: 900;
 
 }
 
 
-.info-card h3 {
+.step-icon {
+
+    width: 55px;
+
+    height: 55px;
 
     margin:
-        0 0 8px;
+        15px 0 25px;
 
-    font-size: 18px;
+    display: grid;
+
+    place-items: center;
+
+    border:
+        1px solid
+        rgba(255,197,46,0.5);
+
+    border-radius: 50%;
+
+    color: var(--yellow);
+
+    font-weight: 900;
+
+    font-size: 14px;
 
 }
 
 
-.info-card p {
+.step-card h3 {
+
+    margin:
+        0 0 10px;
+
+    font-size: 22px;
+
+}
+
+
+.step-card p {
 
     margin: 0;
 
-    color:
-        var(--text-muted);
+    color: var(--text-muted);
 
-    font-size: 13px;
+    font-size: 14px;
 
     line-height: 1.6;
 
 }
 
 
-/* =========================
+/* =========================================
    FOOTER
-========================= */
+========================================= */
 
 footer {
+
+    min-height: 75px;
 
     display: flex;
 
     justify-content: center;
 
-    gap: 10px;
+    align-items: center;
 
-    padding:
-        30px;
+    gap: 15px;
+
+    padding: 20px;
 
     color:
-        #637b9f;
+        #6d88af;
 
-    font-size: 12px;
+    font-size: 13px;
 
-    border-top:
-        1px solid
-        rgba(255,255,255,0.08);
+    background:
+        rgba(0,0,0,0.15);
 
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+.footer-divider {
 
-@media (max-width: 700px) {
+    color:
+        #3b5d8c;
 
-    .topbar {
-
-        padding:
-            0 20px;
-
-    }
+}
 
 
-    .container {
+.footer-yellow {
 
-        width:
-            calc(100% - 28px);
+    color: var(--yellow);
 
-    }
+}
 
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
 
     .hero {
 
-        min-height: 430px;
+        width:
+            calc(100% - 50px);
 
-        padding:
-            50px 0;
+        grid-template-columns:
+            1fr 260px;
 
-    }
-
-
-    h1 {
-
-        font-size: 62px;
-
-        letter-spacing: -3px;
+        gap: 30px;
 
     }
 
 
-    #count {
+    .lower-section {
 
-        font-size: 105px;
-
-        letter-spacing: -5px;
-
-    }
-
-
-    .info-section {
+        width:
+            calc(100% - 50px);
 
         grid-template-columns:
             1fr;
@@ -640,24 +689,132 @@ footer {
 
     .qr-card {
 
+        max-width: 800px;
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .topbar {
+
+        height: 75px;
+
         padding:
-            30px 20px;
+            0 20px;
 
     }
 
 
-    .qrcode {
+    .iitb-logo {
 
-        padding: 10px;
+        width: 48px;
+
+        height: 48px;
 
     }
 
 
-    .qrcode img {
+    .hero {
 
-        width: 240px !important;
+        width:
+            calc(100% - 30px);
 
-        height: 240px !important;
+        padding:
+            50px 0;
+
+        min-height: auto;
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+
+    }
+
+
+    h1 {
+
+        font-size: 62px;
+
+        letter-spacing: -4px;
+
+    }
+
+
+    .subtitle {
+
+        margin-top: 25px;
+
+        font-size: 16px;
+
+    }
+
+
+    .hero-right {
+
+        min-height: auto;
+
+        padding:
+            40px 0 0;
+
+        border-left: none;
+
+        border-top:
+            2px solid
+            rgba(255,197,46,0.25);
+
+    }
+
+
+    .count {
+
+        font-size: 115px;
+
+    }
+
+
+    .lower-section {
+
+        width:
+            calc(100% - 30px);
+
+        padding-top: 25px;
+
+    }
+
+
+    .qr-card {
+
+        grid-template-columns: 1fr;
+
+        padding: 25px;
+
+    }
+
+
+    .qr-wrapper {
+
+        order: -1;
+
+    }
+
+
+    .steps {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .step-card {
+
+        min-height: auto;
 
     }
 
@@ -666,7 +823,52 @@ footer {
 
         flex-direction: column;
 
-        align-items: center;
+        gap: 7px;
+
+    }
+
+
+    .footer-divider {
+
+        display: none;
+
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 400px) {
+
+    h1 {
+
+        font-size: 53px;
+
+    }
+
+
+    .count {
+
+        font-size: 95px;
+
+    }
+
+
+    .qrcode {
+
+        padding: 8px;
+
+    }
+
+
+    .qrcode img {
+
+        width: 220px !important;
+
+        height: 220px !important;
 
     }
 
