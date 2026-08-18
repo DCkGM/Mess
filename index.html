@@ -20,10 +20,12 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 
-    <!-- QR Code -->
+    <!-- QR Code Library -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+
+    <!-- Our CSS -->
 
     <link rel="stylesheet" href="style.css">
 
@@ -33,16 +35,17 @@
 <body>
 
 
-    <!-- TOP BAR -->
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <header class="topbar">
 
         <div class="brand">
 
-            <!-- Official IITB logo -->
             <img
-                src="https://www.iitb.ac.in/sites/www.iitb.ac.in/files/2025-02/IITB%20Logo.png"
-                alt="IIT Bombay"
+                src="logo.png"
+                alt="IIT Bombay Logo"
                 class="iitb-logo"
             >
 
@@ -64,14 +67,20 @@
 
 
 
-    <main class="container">
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main>
 
 
-        <!-- MAIN COUNT -->
+        <!-- =================================
+             HERO
+        ================================== -->
 
         <section class="hero">
 
-            <div class="hero-content">
+            <div class="hero-left">
 
                 <p class="eyebrow">
                     HOSTEL MESS • LIVE
@@ -79,7 +88,7 @@
 
 
                 <h1>
-                    Students<br>
+                    Students
                     <span>Present</span>
                 </h1>
 
@@ -89,17 +98,24 @@
                     mess check-ins.
                 </p>
 
+            </div>
 
-                <div class="count-wrapper">
 
-                    <div id="count">
-                        0
-                    </div>
 
-                    <div class="count-label">
-                        STUDENTS
-                    </div>
+            <!-- LIVE NUMBER -->
 
+            <div class="hero-right">
+
+                <div
+                    id="count"
+                    class="count"
+                >
+                    0
+                </div>
+
+
+                <div class="count-label">
+                    STUDENTS
                 </div>
 
 
@@ -107,7 +123,7 @@
                     id="status"
                     class="status"
                 >
-                    Connecting...
+                    ● Connecting...
                 </div>
 
             </div>
@@ -116,50 +132,52 @@
 
 
 
-        <!-- QR -->
+        <!-- =================================
+             GOLD DIVIDER
+        ================================== -->
 
-        <section class="qr-section">
+        <div class="gold-line"></div>
+
+
+
+        <!-- =================================
+             LOWER CONTENT
+        ================================== -->
+
+        <section class="lower-section">
+
+
+            <!-- =================================
+                 QR CARD
+            ================================== -->
 
             <div class="qr-card">
 
-                <div class="qr-header">
+                <div class="qr-content">
 
-                    <div>
-
-                        <p class="eyebrow">
-                            QUICK CHECK-IN
-                        </p>
-
-                        <h2>
-                            Entering the mess?
-                        </h2>
-
-                    </div>
-
-                    <div class="qr-number">
-                        01
-                    </div>
-
-                </div>
+                    <p class="eyebrow dark">
+                        QUICK CHECK-IN
+                    </p>
 
 
-                <div
-                    id="qrcode"
-                    class="qrcode"
-                ></div>
+                    <h2>
+                        Entering the mess?
+                    </h2>
 
 
-                <div class="scan-message">
+                    <p class="qr-description">
+                        Scan the QR code to check in.
+                    </p>
 
-                    <div class="scan-icon">
-                        ↗
-                    </div>
 
-                    <div>
+                    <div class="qr-divider"></div>
 
-                        <strong>
-                            Scan to check in
-                        </strong>
+
+                    <div class="scan-instruction">
+
+                        <div class="phone-icon">
+                            📱
+                        </div>
 
                         <p>
                             Point your phone camera
@@ -170,87 +188,127 @@
 
                 </div>
 
+
+
+                <!-- QR -->
+
+                <div class="qr-wrapper">
+
+                    <div
+                        id="qrcode"
+                        class="qrcode"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 HOW IT WORKS
+            ================================== -->
+
+            <div class="how-section">
+
+                <p class="eyebrow">
+                    HOW IT WORKS
+                </p>
+
+
+                <div class="steps">
+
+
+                    <!-- STEP 1 -->
+
+                    <div class="step-card">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="step-icon">
+                            QR
+                        </div>
+
+                        <h3>
+                            Scan
+                        </h3>
+
+                        <p>
+                            Scan the QR code
+                            when you enter
+                            the mess.
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- STEP 2 -->
+
+                    <div class="step-card">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="step-icon">
+                            ●●
+                        </div>
+
+                        <h3>
+                            Count
+                        </h3>
+
+                        <p>
+                            Your anonymous
+                            check-in contributes
+                            to the live estimate.
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- STEP 3 -->
+
+                    <div class="step-card">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="step-icon">
+                            ↗
+                        </div>
+
+                        <h3>
+                            View
+                        </h3>
+
+                        <p>
+                            See approximately
+                            how busy the mess
+                            currently is.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
             </div>
 
         </section>
-
-
-
-        <!-- INFO -->
-
-        <section class="info-section">
-
-            <div class="info-card">
-
-                <div class="info-number">
-                    01
-                </div>
-
-                <div>
-
-                    <h3>
-                        Scan
-                    </h3>
-
-                    <p>
-                        Scan the QR code when you
-                        enter the mess.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <div class="info-number">
-                    02
-                </div>
-
-                <div>
-
-                    <h3>
-                        Count
-                    </h3>
-
-                    <p>
-                        Your anonymous check-in
-                        contributes to the live estimate.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <div class="info-number">
-                    03
-                </div>
-
-                <div>
-
-                    <h3>
-                        View
-                    </h3>
-
-                    <p>
-                        See approximately how busy
-                        the mess currently is.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
 
     </main>
 
 
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
 
     <footer>
 
@@ -258,11 +316,11 @@
             Indian Institute of Technology Bombay
         </span>
 
-        <span>
-            •
+        <span class="footer-divider">
+            |
         </span>
 
-        <span>
+        <span class="footer-yellow">
             Hostel Mess
         </span>
 
@@ -270,13 +328,20 @@
 
 
 
+    <!-- =====================================
+         FIREBASE CONFIG
+    ====================================== -->
+
     <script src="firebase-config.js"></script>
+
 
 
     <script>
 
         /*
-            How long a scan remains active.
+        ========================================
+        SETTINGS
+        ========================================
         */
 
         const WINDOW_MINUTES = 30;
@@ -284,7 +349,9 @@
 
 
         /*
-            QR CODE
+        ========================================
+        CREATE QR CODE
+        ========================================
         */
 
         const checkinURL =
@@ -301,9 +368,9 @@
             {
                 text: checkinURL,
 
-                width: 280,
+                width: 260,
 
-                height: 280,
+                height: 260,
 
                 correctLevel:
                     QRCode.CorrectLevel.H
@@ -315,7 +382,9 @@
 
 
         /*
-            FIREBASE
+        ========================================
+        INITIALIZE FIREBASE
+        ========================================
         */
 
         firebase.initializeApp(
@@ -329,7 +398,9 @@
 
 
         /*
-            UPDATE COUNT
+        ========================================
+        UPDATE STUDENT COUNT
+        ========================================
         */
 
         function updateCount(snapshot) {
@@ -385,21 +456,35 @@
 
 
         /*
-            LIVE DATABASE LISTENER
+        ========================================
+        LISTEN FOR DATABASE CHANGES
+        ========================================
         */
 
         database
             .ref("scans")
             .on(
                 "value",
-                updateCount
+                updateCount,
+
+                function(error) {
+
+                    console.error(error);
+
+                    document
+                        .getElementById("status")
+                        .textContent =
+                        "● Database connection error";
+
+                }
             );
 
 
 
         /*
-            Remove expired scans
-            from the displayed count.
+        ========================================
+        REFRESH EVERY 20 SECONDS
+        ========================================
         */
 
         setInterval(
