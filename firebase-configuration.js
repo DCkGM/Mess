@@ -1,12 +1,12 @@
 const MESS_FIREBASE_CONFIG = {
 
-    apiKey: "IzaSyA5Xt8vTe1Cza4wON_OhQGQ3smATAXbc7I",
+    apiKey: "AIzaSyA5Xt8vTe1Cza4wON_OhQGQ3smATAXbc7I",
 
     authDomain:
         "messapp-iitb.firebaseapp.com",
 
     databaseURL:
-        "http://messapp-iitb-default-rtdb.firebaseio.com/",
+        "https://messapp-iitb-default-rtdb.firebaseio.com/",
 
     projectId:
         "messapp-iitb",
