@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mess Check-In</title>
+
+
+    <!-- Firebase -->
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <div class="card checkin-card">
+
+            <div class="tick">
+                ✓
+            </div>
+
+            <p class="label">
+                HOSTEL MESS
+            </p>
+
+            <h1 id="heading">
+                Checking you in...
+            </h1>
+
+            <p id="message">
+                Please wait.
+            </p>
+
+
+            <a
+                href="index.html"
+                class="button"
+            >
+                View Live Count
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <script src="firebase-config.js"></script>
+
+
+    <script>
+
+        firebase.initializeApp(
+            MESS_FIREBASE_CONFIG
+        );
+
+
+        const database =
+            firebase.database();
+
+
+        /*
+            Give each browser a unique ID.
+
+            This prevents someone scanning the QR
+            multiple times from being counted multiple
+            times.
+        */
+
+        function getBrowserID() {
+
+            let id =
+                localStorage.getItem(
+                    "mess_browser_id"
+                );
+
+
+            if (!id) {
+
+                id =
+                    crypto.randomUUID
+                    ? crypto.randomUUID()
+                    :
+                    "id-" +
+                    Date.now() +
+                    "-" +
+                    Math.random()
+                        .toString(36)
+                        .substring(2);
+
+
+                localStorage.setItem(
+                    "mess_browser_id",
+                    id
+                );
+
+            }
+
+
+            return id;
+
+        }
+
+
+        const browserID =
+            getBrowserID();
+
+
+        /*
+            Record the scan.
+
+            Firebase's server timestamp is used
+            instead of the student's phone time.
+        */
+
+        database
+            .ref(
+                "scans/" + browserID
+            )
+            .set(
+                firebase.database.ServerValue.TIMESTAMP
+            )
+
+
+            .then(function() {
+
+                document.getElementById(
+                    "heading"
+                ).textContent =
+                    "You're checked in!";
+
+
+                document.getElementById(
+                    "message"
+                ).textContent =
+                    "Your scan has been counted.";
+
+            })
+
+
+            .catch(function(error) {
+
+                document.getElementById(
+                    "heading"
+                ).textContent =
+                    "Something went wrong";
+
+
+                document.getElementById(
+                    "message"
+                ).textContent =
+                    "Please scan the QR code again.";
+
+                console.error(error);
+
+            });
+
+    </script>
+
+</body>
+
+</html>
