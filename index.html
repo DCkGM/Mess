@@ -1,170 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Hostel Mess</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>IIT Bombay Hostel Mess</title>
+
 
     <!-- Firebase -->
+
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-    <!-- QR Code library -->
+
+    <!-- QR Code -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <div class="container">
 
-        <div class="card main-card">
+    <!-- TOP BAR -->
 
-            <p class="label">HOSTEL MESS</p>
+    <header class="topbar">
 
-            <h1>Students Present</h1>
+        <div class="brand">
 
-            <div id="count">0</div>
+            <!-- Official IITB logo -->
+            <img
+                src="https://www.iitb.ac.in/sites/www.iitb.ac.in/files/2025-02/IITB%20Logo.png"
+                alt="IIT Bombay"
+                class="iitb-logo"
+            >
 
-            <p class="status" id="status">
-                Connecting...
-            </p>
+            <div class="brand-text">
 
-        </div>
+                <strong>
+                    IIT BOMBAY
+                </strong>
 
+                <span>
+                    Hostel Mess
+                </span>
 
-        <div class="card qr-card">
-
-            <p class="label">SCAN TO ENTER</p>
-
-            <h2>Mess Check-In</h2>
-
-            <div id="qrcode"></div>
-
-            <p class="instruction">
-                Scan this QR code when entering the mess.
-            </p>
+            </div>
 
         </div>
 
+    </header>
 
-        <div class="card info-card">
 
-            <h2>How it works</h2>
 
-            <p>
-                Scan the QR code when you enter the mess.
-                The number above gives a rough estimate of
-                how many students are currently present.
-            </p>
+    <main class="container">
 
-        </div>
 
-    </div>
+        <!-- MAIN COUNT -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    HOSTEL MESS • LIVE
+                </p>
+
+
+                <h1>
+                    Students<br>
+                    <span>Present</span>
+                </h1>
+
+
+                <p class="subtitle">
+                    A live estimate based on recent
+                    mess check-ins.
+                </p>
+
+
+                <div class="count-wrapper">
+
+                    <div id="count">
+                        0
+                    </div>
+
+                    <div class="count-label">
+                        STUDENTS
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="status"
+                    class="status"
+                >
+                    Connecting...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- QR -->
+
+        <section class="qr-section">
+
+            <div class="qr-card">
+
+                <div class="qr-header">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            QUICK CHECK-IN
+                        </p>
+
+                        <h2>
+                            Entering the mess?
+                        </h2>
+
+                    </div>
+
+                    <div class="qr-number">
+                        01
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="qrcode"
+                    class="qrcode"
+                ></div>
+
+
+                <div class="scan-message">
+
+                    <div class="scan-icon">
+                        ↗
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Scan to check in
+                        </strong>
+
+                        <p>
+                            Point your phone camera
+                            at the QR code.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- INFO -->
+
+        <section class="info-section">
+
+            <div class="info-card">
+
+                <div class="info-number">
+                    01
+                </div>
+
+                <div>
+
+                    <h3>
+                        Scan
+                    </h3>
+
+                    <p>
+                        Scan the QR code when you
+                        enter the mess.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-number">
+                    02
+                </div>
+
+                <div>
+
+                    <h3>
+                        Count
+                    </h3>
+
+                    <p>
+                        Your anonymous check-in
+                        contributes to the live estimate.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-number">
+                    03
+                </div>
+
+                <div>
+
+                    <h3>
+                        View
+                    </h3>
+
+                    <p>
+                        See approximately how busy
+                        the mess currently is.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <footer>
+
+        <span>
+            Indian Institute of Technology Bombay
+        </span>
+
+        <span>
+            •
+        </span>
+
+        <span>
+            Hostel Mess
+        </span>
+
+    </footer>
+
 
 
     <script src="firebase-config.js"></script>
 
+
     <script>
+
+        /*
+            How long a scan remains active.
+        */
 
         const WINDOW_MINUTES = 30;
 
+
+
         /*
-            Generate QR code pointing to checkin.html
+            QR CODE
         */
 
         const checkinURL =
-            new URL("checkin.html", window.location.href).href;
+            new URL(
+                "checkin.html",
+                window.location.href
+            ).href;
+
 
         new QRCode(
+
             document.getElementById("qrcode"),
+
             {
                 text: checkinURL,
+
                 width: 280,
-                height: 280
+
+                height: 280,
+
+                correctLevel:
+                    QRCode.CorrectLevel.H
+
             }
+
         );
 
 
+
         /*
-            Firebase
+            FIREBASE
         */
 
-        firebase.initializeApp(MESS_FIREBASE_CONFIG);
+        firebase.initializeApp(
+            MESS_FIREBASE_CONFIG
+        );
+
 
         const database =
             firebase.database();
 
 
+
         /*
-            Count students whose last scan
-            happened within WINDOW_MINUTES.
+            UPDATE COUNT
         */
 
         function updateCount(snapshot) {
 
-            const now = Date.now();
+            const now =
+                Date.now();
+
 
             const cutoff =
-                now - WINDOW_MINUTES * 60 * 1000;
+                now -
+                WINDOW_MINUTES *
+                60 *
+                1000;
+
 
             let count = 0;
 
 
-            snapshot.forEach(function(child) {
+            snapshot.forEach(
+                function(child) {
 
-                const timestamp = child.val();
+                    const timestamp =
+                        child.val();
 
-                if (
-                    typeof timestamp === "number" &&
-                    timestamp >= cutoff
-                ) {
 
-                    count++;
+                    if (
+                        typeof timestamp === "number" &&
+                        timestamp >= cutoff
+                    ) {
+
+                        count++;
+
+                    }
 
                 }
+            );
 
-            });
 
-
-            document.getElementById("count")
+            document
+                .getElementById("count")
                 .textContent = count;
 
 
-            document.getElementById("status")
+            document
+                .getElementById("status")
                 .textContent =
-                "Live • Updated " +
-                new Date().toLocaleTimeString();
+                "● LIVE  •  Updated " +
+                new Date()
+                    .toLocaleTimeString();
 
         }
 
 
+
         /*
-            Listen for changes
+            LIVE DATABASE LISTENER
         */
 
         database
             .ref("scans")
-            .on("value", updateCount);
+            .on(
+                "value",
+                updateCount
+            );
+
 
 
         /*
-            Refresh the number every 20 seconds
-            so expired scans disappear.
+            Remove expired scans
+            from the displayed count.
         */
 
-        setInterval(function() {
+        setInterval(
 
-            database
-                .ref("scans")
-                .once("value")
-                .then(updateCount);
+            function() {
 
-        }, 20000);
+                database
+                    .ref("scans")
+                    .once("value")
+                    .then(updateCount);
+
+            },
+
+            20000
+
+        );
 
     </script>
 
+
 </body>
+
 </html>
