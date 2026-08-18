@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Mess Check-In</title>
+    <title>Mess Check-In | IIT Bombay</title>
 
 
     <!-- Firebase -->
@@ -27,43 +27,98 @@
 
 <body>
 
-    <div class="container">
 
-        <div class="card checkin-card">
+    <!-- HEADER -->
 
-            <div class="tick">
-                ✓
-            </div>
+    <header class="topbar">
 
-            <p class="label">
-                HOSTEL MESS
-            </p>
+        <div class="brand">
 
-            <h1 id="heading">
-                Checking you in...
-            </h1>
-
-            <p id="message">
-                Please wait.
-            </p>
-
-
-            <a
-                href="index.html"
-                class="button"
+            <img
+                src="logo.png"
+                alt="IIT Bombay Logo"
+                class="iitb-logo"
             >
-                View Live Count
-            </a>
+
+            <div class="brand-text">
+
+                <strong>
+                    IIT BOMBAY
+                </strong>
+
+                <span>
+                    Hostel Mess
+                </span>
+
+            </div>
 
         </div>
 
-    </div>
+    </header>
 
+
+
+    <!-- CHECK-IN -->
+
+    <main>
+
+        <section class="checkin-page">
+
+            <div class="checkin-card">
+
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+
+                <p class="eyebrow">
+                    HOSTEL MESS
+                </p>
+
+
+                <h1 id="heading">
+                    Checking you in...
+                </h1>
+
+
+                <p
+                    id="message"
+                    class="checkin-message"
+                >
+                    Please wait while your scan
+                    is recorded.
+                </p>
+
+
+                <a
+                    href="index.html"
+                    class="back-button"
+                >
+                    View Live Count
+                </a>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FIREBASE CONFIG -->
 
     <script src="firebase-config.js"></script>
 
 
     <script>
+
+        /*
+        ========================================
+        FIREBASE
+        ========================================
+        */
 
         firebase.initializeApp(
             MESS_FIREBASE_CONFIG
@@ -74,12 +129,11 @@
             firebase.database();
 
 
-        /*
-            Give each browser a unique ID.
 
-            This prevents someone scanning the QR
-            multiple times from being counted multiple
-            times.
+        /*
+        ========================================
+        GET UNIQUE BROWSER ID
+        ========================================
         */
 
         function getBrowserID() {
@@ -92,16 +146,25 @@
 
             if (!id) {
 
-                id =
+                if (
+                    window.crypto &&
                     crypto.randomUUID
-                    ? crypto.randomUUID()
-                    :
-                    "id-" +
-                    Date.now() +
-                    "-" +
-                    Math.random()
-                        .toString(36)
-                        .substring(2);
+                ) {
+
+                    id =
+                        crypto.randomUUID();
+
+                } else {
+
+                    id =
+                        "id-" +
+                        Date.now() +
+                        "-" +
+                        Math.random()
+                            .toString(36)
+                            .substring(2);
+
+                }
 
 
                 localStorage.setItem(
@@ -117,15 +180,16 @@
         }
 
 
+
         const browserID =
             getBrowserID();
 
 
-        /*
-            Record the scan.
 
-            Firebase's server timestamp is used
-            instead of the student's phone time.
+        /*
+        ========================================
+        RECORD SCAN
+        ========================================
         */
 
         database
@@ -137,40 +201,50 @@
             )
 
 
-            .then(function() {
+            .then(
+                function() {
 
-                document.getElementById(
-                    "heading"
-                ).textContent =
-                    "You're checked in!";
-
-
-                document.getElementById(
-                    "message"
-                ).textContent =
-                    "Your scan has been counted.";
-
-            })
+                    document
+                        .getElementById("heading")
+                        .textContent =
+                        "You're checked in!";
 
 
-            .catch(function(error) {
+                    document
+                        .getElementById("message")
+                        .textContent =
+                        "Your scan has been counted. "
+                        +
+                        "You can now close this page.";
 
-                document.getElementById(
-                    "heading"
-                ).textContent =
-                    "Something went wrong";
+                }
+            )
 
 
-                document.getElementById(
-                    "message"
-                ).textContent =
-                    "Please scan the QR code again.";
+            .catch(
+                function(error) {
 
-                console.error(error);
+                    console.error(error);
 
-            });
+
+                    document
+                        .getElementById("heading")
+                        .textContent =
+                        "Check-in failed";
+
+
+                    document
+                        .getElementById("message")
+                        .textContent =
+                        "Something went wrong. "
+                        +
+                        "Please scan the QR code again.";
+
+                }
+            );
 
     </script>
+
 
 </body>
 
