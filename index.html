@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hostel Mess</title>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+    <!-- QR Code library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card main-card">
+
+            <p class="label">HOSTEL MESS</p>
+
+            <h1>Students Present</h1>
+
+            <div id="count">0</div>
+
+            <p class="status" id="status">
+                Connecting...
+            </p>
+
+        </div>
+
+
+        <div class="card qr-card">
+
+            <p class="label">SCAN TO ENTER</p>
+
+            <h2>Mess Check-In</h2>
+
+            <div id="qrcode"></div>
+
+            <p class="instruction">
+                Scan this QR code when entering the mess.
+            </p>
+
+        </div>
+
+
+        <div class="card info-card">
+
+            <h2>How it works</h2>
+
+            <p>
+                Scan the QR code when you enter the mess.
+                The number above gives a rough estimate of
+                how many students are currently present.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="firebase-config.js"></script>
+
+    <script>
+
+        const WINDOW_MINUTES = 30;
+
+        /*
+            Generate QR code pointing to checkin.html
+        */
+
+        const checkinURL =
+            new URL("checkin.html", window.location.href).href;
+
+        new QRCode(
+            document.getElementById("qrcode"),
+            {
+                text: checkinURL,
+                width: 280,
+                height: 280
+            }
+        );
+
+
+        /*
+            Firebase
+        */
+
+        firebase.initializeApp(MESS_FIREBASE_CONFIG);
+
+        const database =
+            firebase.database();
+
+
+        /*
+            Count students whose last scan
+            happened within WINDOW_MINUTES.
+        */
+
+        function updateCount(snapshot) {
+
+            const now = Date.now();
+
+            const cutoff =
+                now - WINDOW_MINUTES * 60 * 1000;
+
+            let count = 0;
+
+
+            snapshot.forEach(function(child) {
+
+                const timestamp = child.val();
+
+                if (
+                    typeof timestamp === "number" &&
+                    timestamp >= cutoff
+                ) {
+
+                    count++;
+
+                }
+
+            });
+
+
+            document.getElementById("count")
+                .textContent = count;
+
+
+            document.getElementById("status")
+                .textContent =
+                "Live • Updated " +
+                new Date().toLocaleTimeString();
+
+        }
+
+
+        /*
+            Listen for changes
+        */
+
+        database
+            .ref("scans")
+            .on("value", updateCount);
+
+
+        /*
+            Refresh the number every 20 seconds
+            so expired scans disappear.
+        */
+
+        setInterval(function() {
+
+            database
+                .ref("scans")
+                .once("value")
+                .then(updateCount);
+
+        }, 20000);
+
+    </script>
+
+</body>
+</html>
